@@ -212,8 +212,45 @@ function extractEmails(str) {
  *             '└──────────┘\n'
  *
  */
-function getRectangleString(/* width, height */) {
-  throw new Error('Not implemented');
+function getRectangleString(width, height) {
+  let result = '';
+  for (let x = 0; x < height; x += 1) {
+    for (let y = 0; y < width - 1; y += 1) {
+      switch (x) {
+        case 0:
+          if (y === 0) {
+            result += '┌';
+          }
+          if (y === width - 2) {
+            result += '┐\n';
+          } else {
+            result += '─';
+          }
+          break;
+        case height - 1:
+          if (y === 0) {
+            result += '└';
+          }
+          if (y === width - 2) {
+            result += '┘\n';
+          } else {
+            result += '─';
+          }
+          break;
+        default:
+          if (y === 0) {
+            result += '│';
+          }
+          if (y === width - 2) {
+            result += '│\n';
+          } else {
+            result += ' ';
+          }
+          break;
+      }
+    }
+  }
+  return result;
 }
 
 
@@ -233,8 +270,21 @@ function getRectangleString(/* width, height */) {
  *    => 'NOPQRSTUVWXYZABCDEFGHIJKLMnopqrstuvwxyzabcdefghijklm'
  *
  */
-function encodeToRot13(/* str */) {
-  throw new Error('Not implemented');
+function encodeToRot13(str) {
+  let result = '';
+  for (let i = 0; i < str.length; i += 1) {
+    const charCode = str.charCodeAt(i);
+    if ([32, 46, 44, 33, 63, 59, 45].includes(charCode)) {
+      result += String.fromCharCode(charCode);
+    }
+    if ((charCode >= 65 && charCode <= 77) || (charCode >= 97 && charCode <= 109)) {
+      result += String.fromCharCode(charCode + 13);
+    }
+    if ((charCode >= 78 && charCode <= 90) || (charCode >= 110 && charCode <= 122)) {
+      result += String.fromCharCode(charCode - 13);
+    }
+  }
+  return result;
 }
 
 /**
@@ -286,8 +336,14 @@ function isString(value) {
  *   'Q♠' => 50
  *   'K♠' => 51
  */
-function getCardId(/* value */) {
-  throw new Error('Not implemented');
+function getCardId(value) {
+  const arr = [
+    'A♣', '2♣', '3♣', '4♣', '5♣', '6♣', '7♣', '8♣', '9♣', '10♣', 'J♣', 'Q♣', 'K♣',
+    'A♦', '2♦', '3♦', '4♦', '5♦', '6♦', '7♦', '8♦', '9♦', '10♦', 'J♦', 'Q♦', 'K♦',
+    'A♥', '2♥', '3♥', '4♥', '5♥', '6♥', '7♥', '8♥', '9♥', '10♥', 'J♥', 'Q♥', 'K♥',
+    'A♠', '2♠', '3♠', '4♠', '5♠', '6♠', '7♠', '8♠', '9♠', '10♠', 'J♠', 'Q♠', 'K♠',
+  ];
+  return arr.indexOf(value);
 }
 
 
