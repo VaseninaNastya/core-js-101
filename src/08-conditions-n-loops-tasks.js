@@ -187,7 +187,8 @@ function isInsideCircle(/* circle, point */) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-  return [...str].find((n, i, a) => a.indexOf(n) === a.lastIndexOf(n)) || null;
+  const arr = str.split('');
+  return arr.find((n, i, a) => a.indexOf(n) === a.lastIndexOf(n)) || null;
 }
 
 
